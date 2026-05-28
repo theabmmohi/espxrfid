@@ -9,7 +9,11 @@ A sophisticated RFID access control system using the **MFRC522** module and **ES
 - 🖥️ **OLED feedback** — SSD1306 display shows cardholder name and authorization status on scan
 - 🌐 **Web dashboard** — built with Vue + Vite (source and compiled assets included)
 
----
+## Web Preview
+
+A wen preview is [available here](http://93.115.101.180:10469/).
+
+> **BUT IT MIGHT UNAVAILABLE WHEN YOURE VISITING ;)**
 
 ## Hardware
 
@@ -18,8 +22,6 @@ A sophisticated RFID access control system using the **MFRC522** module and **ES
 | ESP8266   | Main controller      | WiFi      |
 | MFRC522   | RFID reader (13.56 MHz) | SPI    |
 | SSD1306   | Status display       | I2C       |
-
----
 
 ## Wiring
 
@@ -33,8 +35,6 @@ A sophisticated RFID access control system using the **MFRC522** module and **ES
 | MFRC522  | SS   | D8      |
 | MFRC522  | RST  | D3      |
 
----
-
 ## Setup
 
 ### 1. Clone and configure
@@ -46,7 +46,7 @@ mv .env.example .env
 # Update .env with your preferred credentials
 ```
 
-> ⚠️ **Important:** Make sure `OTP_SEC` in `.env` and `TOTP_SECRET` in the ESP8266 firmware are **identical**.
+> ⚠️ **Important:** Make sure `OTP_SEC` in `.env` and `TOTP_SECRET` in the ESP8266 firmware are **IDENTICAL**.
 
 ### 2. Run the server
 
