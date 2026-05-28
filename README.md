@@ -1,48 +1,74 @@
-# ESPxRFID: Dynamic RFID Management System
 
-A sophisticated RFID access control system using the **MFRC522** module and **ESP8266** microcontroller. Unlike traditional projects with hardcoded UIDs, this solution features a dynamic management dashboard for real-time control and monitoring.
+# ESPxRFID
 
-## 🚀 Features
+A sophisticated RFID access control system using the **MFRC522** module and **ESP8266** microcontroller. Unlike typical RFID projects that rely on hardcoded UIDs in firmware, this system introduces a **dynamic management system** with a web-based dashboard.
 
-* **Real-time Monitoring:** View access logs as they happen via a web dashboard.
-* **Dynamic User Management:** Register or remove users with names and roles (e.g., Manager, Staff) without reflashing firmware.
-* **Instant Permissions:** Toggle access for any user instantly without deleting their data.
-* **Visual Feedback:** Integrated **SSD1306** OLED display shows cardholder names and authorization status upon scanning.
-* **Modern Frontend:** Built with **Vue** and **Vite** for a responsive management experience.
+## Features
 
-## 🛠️ Hardware Requirements
-
-| Component | Purpose |
-| :--- | :--- |
-| **ESP8266** | Main Microcontroller (WiFi enabled) |
-| **MFRC522** | RFID Reader Module |
-| **SSD1306** | 0.96" OLED Display |
-| **RFID Tags/Cards** | User authentication tokens |
-
-## 🔌 Wiring Diagram
-
-| MFRC522 / OLED Pin | ESP8266 Pin |
-| :--- | :--- |
-| **RFID RST** | D3 |
-| **RFID SDA (SS)** | D4 |
-| **RFID MOSI** | D7 |
-| **RFID MISO** | D6 |
-| **RFID SCK** | D5 |
-| **OLED SDA** | D2 |
-| **OLED SCL** | D1 |
-
-## 💻 Setup & Installation
-
-### 1. Server Setup
-You can host the management dashboard on any server. 
-> **Note:** A free tier (1 GB Storage & 0.5 GB Memory) is available via [WispByte](https://wispbyte.com/a?ref=u3q3euqys1).
-
-### 2. Firmware Configuration
-1. Clone this repository.
-2. Open the project in your preferred IDE (Arduino IDE / PlatformIO).
-3. Ensure the `MFRC522` and `Adafruit SSD1306` libraries are installed.
-4. Update the WiFi credentials and Server URL in the source code.
-5. Upload the code to your ESP8266.
+- 📋 **Real-time access logs** — monitor who scans and when
+- 👤 **User management** — register or remove users with names and roles (Manager / Staff)
+- 🔒 **Permission toggling** — enable or disable access without deleting user data
+- 🖥️ **OLED feedback** — SSD1306 display shows cardholder name and authorization status on scan
+- 🌐 **Web dashboard** — built with Vue + Vite (source and compiled assets included)
 
 ---
-*Enjoy modifying the project!* :)
+
+## Hardware
+
+| Component | Purpose              | Interface |
+|-----------|----------------------|-----------|
+| ESP8266   | Main controller      | WiFi      |
+| MFRC522   | RFID reader (13.56 MHz) | SPI    |
+| SSD1306   | Status display       | I2C       |
+
+---
+
+## Wiring
+
+| Device   | Pin  | ESP8266 |
+|----------|------|---------|
+| SSD1306  | SDA  | D1      |
+| SSD1306  | SCL  | D2      |
+| MFRC522  | SCK  | D5      |
+| MFRC522  | MISO | D6      |
+| MFRC522  | MOSI | D7      |
+| MFRC522  | SS   | D8      |
+| MFRC522  | RST  | D3      |
+
+---
+
+## Setup
+
+### 1. Clone and configure
+
+```bash
+gh repo clone theabmmohi/espxrfid
+cd espxrfid
+mv .env.example .env
+# Update .env with your preferred credentials
+```
+
+> ⚠️ **Important:** Make sure `OTP_SEC` in `.env` and `TOTP_SECRET` in the ESP8266 firmware are **identical**.
+
+### 2. Run the server
+
+```bash
+pip install -r requirements.txt
+python app.py
+```
+
+### 3. Flash ESP8266 firmware
+
+Open `static/resources/main.ino` in the Arduino IDE and flash it to your ESP8266.
+
+---
+
+## Contact
+
+| Platform  | Handle |
+|-----------|--------|
+| GitHub    | [@theabmmohi](https://github.com/theabmmohi) |
+| Facebook  | [@theabmmohi](https://facebook.com/theabmmohi) |
+| Instagram | [@theabmmohi](https://instagram.com/theabmmohi) |
+| Telegram  | [@theabmmohi](https://t.me/theabmmohi) |
+| Email     | admin@imabm.eu.cc |
