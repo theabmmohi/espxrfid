@@ -1,0 +1,50 @@
+:root {
+  --light: rgba(225, 225, 225, 1);
+  --dark:  rgba(025, 025, 025, 1);
+  --r:  rgba(250, 125, 125, 0.99);
+  --g:  rgba(125, 250, 125, 0.99);
+  --b:  rgba(125, 125, 250, 0.99);
+}
+
+@media (prefers-color-scheme: light) {:root {
+  --background: var(--light);
+  --foreground: var(--dark);
+}}
+@media (prefers-color-scheme: dark ) {:root {
+  --background: var(--dark);
+  --foreground: var(--light);
+}}
+html[data-theme="light"] {
+  --background: var(--light);
+  --foreground: var(--dark);
+}
+html[data-theme="dark" ] {
+  --background: var(--dark);
+  --foreground: var(--light);
+}
+
+
+*, *::before, *::after {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-appearance: none;
+  font-family: Monospace, system-ui, sans-serif;
+  fill: var(--foreground);
+  box-sizing: border-box;
+  user-select: none;
+  padding: 0;
+  margin: 0;
+  &::-webkit-scrollbar-thumb {
+    background: var(--foreground);
+    border-radius: 10px;
+  }
+}
+
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+}
+
+td {
+  color: var(--dark);
+}

@@ -1,0 +1,1 @@
+import{n as e,r as t,t as n}from"./index_BRYvGOlG.js";var r={xmlns:`http://www.w3.org/2000/svg`,width:`24`,height:`24`,fill:`#e3e3e3`,viewBox:`0 -960 960 960`};function i(i,a){return t(),e(`svg`,r,[...a[0]||=[n(`path`,{d:`m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224z`},null,-1)]])}var a={render:i};export{a as default,i as render};

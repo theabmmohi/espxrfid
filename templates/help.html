@@ -1,0 +1,363 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/arduino.min.js"></script>
+    <title>Project - ESPxRFID</title>
+    <style>
+@import "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/tokyo-night-dark.min.css";
+*, *::before, *::after {
+  -webkit-tap-highlight-color: transparent;
+  scroll-behavior: smooth;
+  box-sizing: border-box;
+  line-height: 1.5;
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  font-family: 'Inter', Sans-Serif;
+  background: #FAFAFA;
+  width: 100vw;
+  section {
+    margin-bottom: 20px;
+    width: 100%;
+    > h3 {
+      border-bottom: 1px solid black;
+      backdrop-filter: blur(5px);
+      background: #FAFAFA75;
+      padding: 10px 20px;
+      position: sticky;
+      z-index: 999;
+      top: 0;
+    }
+    > div {
+      padding: 20px;
+      pre {
+        background: #4F4F4F;
+        border-radius: 20px;
+        overflow-x: auto;
+        max-height: 50vh;
+        code { all: unset; }
+        div {
+          justify-content: space-between;
+          align-items: center;
+          background: #4F4F4F;
+          padding: 10px 20px;
+          position: sticky;
+          color: #FAFAFA;
+          display: flex;
+          top: 0;
+          button {
+            font-family: 'IBM Plex Mono', Monospace;
+            border-radius: 10px;
+            padding: 0.25ch 1ch;
+            width: 10ch;
+          }
+        }
+      }
+      table {
+        border-spacing: 0px;
+        min-width: 100%;
+        thead { background: #E9E9E9; }
+        tr {
+          th, td {
+            border: 0.5px solid black;
+            text-align: center;
+            padding: 10px 20px;
+          }
+          td:not(:last-child) { text-align: center; }
+          &:hover { background: #E9E9E9; }
+        }
+      }
+    }
+  }
+}
+
+code {
+  font-family: 'IBM Plex Mono', Monospace;
+  background: #E1E1E1;
+  border-radius: 5px;
+  padding: 2.5px 5px;
+  font-size: 0.9rem;
+  font-weight: bold;
+}
+
+a {
+  text-decoration: underline dotted;
+  color: inherit;
+}
+
+.endpoint {
+  > div {
+    flex-direction: column;
+    display: flex;
+    gap: 10px;
+    > div {
+      justify-content: space-between;
+      background: #F1F1F1;
+      border-radius: 20px;
+      padding: 10px 20px;
+      display: flex;
+      &:not(:first-child) span:first-child {
+        font-family: 'IBM Plex Mono', Monospace;
+        background: #E1E1E1;
+        border-radius: 5px;
+        text-align: center;
+        font-weight: bold;
+        padding: 0 1ch;
+        width: 6ch;
+      }
+    }
+  }
+}
+
+.setup {
+  > div {
+    flex-direction: column;
+    display: flex;
+    gap: 20px;
+    > div p {
+      padding: 0 0 10px 10px;
+      font-weight: bold;
+    }
+  }
+}
+
+.findMe {
+  > div {
+    font-family: 'IBM Plex Mono', Monospace;
+    flex-direction: column;
+    display: flex;
+    gap: 10px;
+    > div {
+      justify-content: space-between;
+      background: #F1F1F1;
+      border-radius: 20px;
+      padding: 10px 20px;
+      display: flex;
+      &:hover { background: #E9E9E9; }
+    }
+  }
+}
+
+.table {
+  border: 0.5px solid black;
+  border-collapse: collapse;
+  border-radius: 20px;
+  background: #F1F1F1;
+  overflow-x: auto;
+  margin-top: 20px;
+}
+.note {
+  border-radius: 5px 20px 20px 5px;
+  border-left: 5px solid black;
+  padding: 10px;
+  margin: 10px;
+  p {
+    text-align: justify;
+  }
+}
+.warning { background: #ef444475; }
+.hint { background: #efef4475; }
+    </style>
+  </head>
+  <body>
+    <section class="overview">
+      <h3>Overview</h3>
+      <div>
+        <p style="text-align: justify;">
+          This project is a sophisticated implementation of the <code>MFRC522</code> RFID module paired with the <code>ESP8266</code> microcontroller.
+          While many RFID projects rely on hardcoded UIDs within the firmware, this solution introduces a dynamic management system.<br><br>
+          The system features a web-based dashboard that allows you to:
+          <ul style="padding-left: 40px; margin: 10px 0;">
+            <li>Monitor access logs in <b>real-time</b>.</li>
+            <li>Register or remove users by assigning names and roles (e.g., Manager or Staff).</li>
+            <li>Toggle access permissions instantly without deleting user data.</li>
+          </ul>
+          To enhance the hardware experience, an <code>SSD1306</code> OLED display provides immediate visual feedback, showing the cardholder's name and authorization status upon scanning.<br><br>
+          The frontend is built using <b>Vue</b> and <b>Vite</b>, with both the source code and compiled assets included to allow for easy customization.<br><br>
+          <code>Enjoy modifying the project!</code>
+        </p>
+        <div class="note hint">
+          <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" height="1.5em" width="1.5em"><path fill="currentColor" d="M24 44q-1.7 0-2.875-1.175T19.95 39.95h8.1q0 1.7-1.175 2.875T24 44Zm-6.6-7.15q-.65 0-1.075-.425Q15.9 36 15.9 35.35q0-.65.425-1.075.425-.425 1.075-.425h13.2q.65 0 1.075.425.425.425.425 1.075 0 .65-.425 1.075-.425.425-1.075.425Zm-1.25-6.05q-3.3-2.15-5.225-5.375Q9 22.2 9 18.15q0-6.1 4.45-10.55Q17.9 3.15 24 3.15q6.1 0 10.55 4.45Q39 12.05 39 18.15q0 4.05-1.9 7.275-1.9 3.225-5.25 5.375Zm1.1-3H30.8q2.4-1.6 3.8-4.15 1.4-2.55 1.4-5.5 0-4.95-3.525-8.475Q28.95 6.15 24 6.15q-4.95 0-8.475 3.525Q12 13.2 12 18.15q0 2.95 1.4 5.5t3.85 4.15Zm6.75 0Z"/></svg>
+          <p><br>
+            Just For Fun <span style="font-family: Monospace;">:)</span><br>
+            This Project Is Currently Available At <a href="http://93.115.101.180:10469/">http://93.115.101.180:10469/</a>.
+            But I Dont Know When I Might Use The Server For Different Purpose Or, Dont Use It.
+            However, You Can Also Get A Free Server
+            [ 1 GB Storage &amp; 0.5 GB Memory On Free Tier ]
+            From <a href="https://wispbyte.com/a?ref=u3q3euqys1">WispByte</a> <span style="font-family: Monospace;">;)</span><br>
+          </p>
+        </div>
+        <div class="note warning">
+          <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" height="1.5em" width="1.5em"><path fill="currentColor" d="M24.05 24.45ZM4.6 42q-.85 0-1.3-.75-.45-.75 0-1.5l19.4-33.5q.45-.75 1.3-.75.85 0 1.3.75l19.4 33.5q.45.75 0 1.5t-1.3.75Zm19.6-22.6q-.65 0-1.075.425-.425.425-.425 1.075v8.2q0 .65.425 1.075.425.425 1.075.425.65 0 1.075-.425.425-.425.425-1.075v-8.2q0-.65-.425-1.075-.425-.425-1.075-.425Zm0 16.75q.65 0 1.075-.425.425-.425.425-1.075 0-.65-.425-1.075-.425-.425-1.075-.425-.65 0-1.075.425Q22.7 34 22.7 34.65q0 .65.425 1.075.425.425 1.075.425ZM7.2 39h33.6L24 10Z"/></svg>
+          <p><br>
+            The source code is public.
+            <a href="https://github.com/theabmmohi/espxrfid">Clone the repo</a> and rename <code>.env.example</code> to <code>.env</code>.
+            Make sure that <code>OTP_SEC</code> of <code>.env</code> file and <code>TOTP_SECRET</code> of ESP8266 firmware are <b>SAME</b>.
+          </p>
+        </div>
+      </div>
+    </section>
+    <section class="hardware">
+      <h3>Hardware</h3>
+      <div>
+        <div class="table">
+          <table>
+            <thead>
+              <tr>
+                <th>Component</th>
+                <th>Purpose</th>
+                <th>Interface</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>ESP8266</td>
+                <td>Main controller</td>
+                <td>WiFi</td>
+              </tr>
+              <tr>
+                <td>MFRC522</td>
+                <td>RFID reader (13.56 MHz)</td>
+                <td>SPI</td>
+              </tr>
+              <tr>
+                <td>SSD1306</td>
+                <td>Status display</td>
+                <td>I2C</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+    <section class="setup">
+      <h3>Setup</h3>
+      <div>
+        <div>
+          <p>Clone and setup repo:</p>
+<pre><div><span>Bash</span><button onclick="copy(this)">Copy</button></div><code class="language-bash">
+gh repo clone theabmmohi/espxrfid
+cd espxrfid
+mv .env.example .env
+# Update .env Secrets With Your Preffered Credentials
+
+</code></pre>
+        </div>
+        <div>
+          <p>Run server:</p>
+<pre><div><span>Bash</span><button onclick="copy(this)">Copy</button></div><code class="language-bash">
+pip install -r requirements.txt
+python app.py
+
+</code></pre>
+        </div>
+        <div>
+          <p>Firmware for ESP8266:</p>
+<pre><div><span>C</span><button onclick="copy(this)">Copy</button></div><code class="language-arduino" id="ino">
+
+</code></pre>
+        </div>
+      </div>
+    </section>
+    <section class="wiring">
+      <h3>Wiring</h3>
+      <div>
+        <div class="table">
+          <table>
+            <thead>
+              <tr>
+                <th>Device</th>
+                <th>Pin</th>
+                <th>ESP8266</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td rowspan="2">SSD1306</td>
+                <td>SDA</td>
+                <td>D1</td>
+              </tr>
+              <tr>
+                <td>SCL</td>
+                <td>D2</td>
+              </tr>
+              <tr>
+                <td rowspan="5">MFRC522</td>
+                <td>SCK</td>
+                <td>D5</td>
+              </tr>
+              <tr>
+                <td>MISO</td>
+                <td>D6</td>
+              </tr>
+              <tr>
+                <td>MOSI</td>
+                <td>D7</td>
+              </tr>
+              <tr>
+                <td>SS</td>
+                <td>D8</td>
+              </tr>
+              <tr>
+                <td>RST</td>
+                <td>D3</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+    <section class="findMe">
+      <h3>Find Me</h3>
+      <div>
+        <div class="facebook">
+          <span>Facebook</span>
+          <a href="https://facebook.com/theabmmohi">@theabmmohi</a>
+        </div>
+        <div class="instagram">
+          <span>Instagram</span>
+          <a href="https://instagram.com/theabmmohi">@theabmmohi</a>
+        </div>
+        <div class="telegram">
+          <span>Telegram</span>
+          <a href="https://t.me/theabmmohi">@theabmmohi</a>
+        </div>
+        <div class="github">
+          <span>Github</span>
+          <a href="https://github.com/theabmmohi">@theabmmohi</a>
+        </div>
+        <div class="email">
+          <span>Email</span>
+          <a href="mailto:admin@imabm.eu.cc">admin@imabm.eu.cc</a>
+        </div>
+      </div>
+    </section>
+    <script>
+async function init () {
+  try {
+    const response = await fetch("static/resources/main.ino")
+    const text = await response.text()
+    document.getElementById("ino").textContent = text
+  } catch (e) {
+    document.getElementById("ino").textContent = e.message
+  } finally {
+    hljs.highlightAll()
+  }
+}
+function copy(button) {
+  const pre  = button.closest("pre")
+  const code = pre.querySelector("code").innerText.trim()
+  navigator.clipboard.writeText(code).then(() => {
+    const text = button.innerText
+    button.innerText = "Copied!"
+    setTimeout(() => button.innerText = text, 1500)
+  })
+}
+window.addEventListener('DOMContentLoaded', init);
+    </script>
+  </body>
+</html>
