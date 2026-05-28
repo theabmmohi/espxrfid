@@ -1,6 +1,4 @@
-
 # ESPxRFID
-
 A sophisticated RFID access control system using the **MFRC522** module and **ESP8266** microcontroller. Unlike typical RFID projects that rely on hardcoded UIDs in firmware, this system introduces a **dynamic management system** with a web-based dashboard.
 
 ## Features
@@ -60,15 +58,3 @@ python app.py
 ### 3. Flash ESP8266 firmware
 
 Open `static/resources/main.ino` in the Arduino IDE and flash it to your ESP8266.
-
----
-
-## Contact
-
-| Platform  | Handle |
-|-----------|--------|
-| GitHub    | [@theabmmohi](https://github.com/theabmmohi) |
-| Facebook  | [@theabmmohi](https://facebook.com/theabmmohi) |
-| Instagram | [@theabmmohi](https://instagram.com/theabmmohi) |
-| Telegram  | [@theabmmohi](https://t.me/theabmmohi) |
-| Email     | admin@imabm.eu.cc |
