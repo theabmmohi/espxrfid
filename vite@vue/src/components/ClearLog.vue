@@ -16,7 +16,7 @@
   const submit = async () => {
     loading.value = true
     try {
-      const res  = await fetch(`${base.value}/api/log/clear`, { method: "POST", credentials: "include" })
+      const res  = await fetch(`${base.value}/api/log/clear`, { method: "POST" })
       const data = await res.json()
       if (data.success) { reset(); emit("done") }
       else message.value = data.message

@@ -154,8 +154,6 @@ Vue.createApp({
   },
   
   created() {
-    //const params = new URLSearchParams(window.location.search)
-    //this.code    = params.get("code") || 999
     this.code    = "{{ error.code }}" || 999
     //this.title   = this.titles[this.code]
     this.title   = "{{ error.name }}"

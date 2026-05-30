@@ -16,7 +16,7 @@
       const form = new FormData()
       form.append("username", username.value)
       form.append("password", password.value)
-      const res = await fetch(`${base.value}/api/auth/login`, { method: "POST", body: form, credentials: "include" })
+      const res = await fetch(`${base.value}/api/auth/login`, { method: "POST", body: form })
       const data = await res.json()
       if (data.success) emit("loggedIn")
       else {

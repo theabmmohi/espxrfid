@@ -26,7 +26,7 @@
       form.append("name", name.value.trim())
       form.append("type", type.value.trim())
       form.append("uid",  uid.value.trim())
-      const res  = await fetch(`${base.value}/api/users/add`, { method: "POST", body: form, credentials: "include" })
+      const res  = await fetch(`${base.value}/api/users/add`, { method: "POST", body: form })
       const data = await res.json()
       message.value = data.message
       if (data.success) {

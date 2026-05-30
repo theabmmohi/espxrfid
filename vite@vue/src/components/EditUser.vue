@@ -20,7 +20,7 @@
     }
     message.value = ""
     try {
-      const res  = await fetch(`${base.value}/api/users/lookup?uid=` + uid.value, { credentials: "include" })
+      const res  = await fetch(`${base.value}/api/users/lookup?uid=` + uid.value)
       const data = await res.json()
       if (data.success && data.user) {
         name.value = data.user.name
@@ -38,7 +38,7 @@
       form.append("uid",  uid.value)
       form.append("name", name.value.trim())
       form.append("type", type.value.trim())
-      const res  = await fetch(`${base.value}/api/users/edit`, { method: "POST", body: form, credentials: "include" })
+      const res  = await fetch(`${base.value}/api/users/edit`, { method: "POST", body: form })
       const data = await res.json()
       message.value = data.message
       if (data.success) { reset(); emit("done") }

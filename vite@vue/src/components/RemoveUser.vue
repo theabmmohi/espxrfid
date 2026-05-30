@@ -16,7 +16,7 @@
     }
     message.value = ""
     try {
-      const res  = await fetch(`${base.value}/api/users/lookup?uid=` + uid.value, { credentials: "include" })
+      const res  = await fetch(`${base.value}/api/users/lookup?uid=` + uid.value)
       const data = await res.json()
       if (data.success && data.user) {
         found.value   = data.user
@@ -31,7 +31,7 @@
     try {
       const form = new FormData()
       form.append("uid", uid.value)
-      const res  = await fetch(`${base.value}/api/users/remove`, { method: "POST", body: form, credentials: "include" })
+      const res  = await fetch(`${base.value}/api/users/remove`, { method: "POST", body: form })
       const data = await res.json()
       message.value = data.message
       if (data.success) { reset(); emit("done") }

@@ -1,4 +1,4 @@
-node_modules
+node_modules/
 .env
 database.db
-__pycache__
+__pycache__/

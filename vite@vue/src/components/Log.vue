@@ -7,7 +7,7 @@
   let   es     = null
   
   const getLog = async () => {
-    const response = await fetch(`${base.value}/api/view/log`, { credentials: "include" })
+    const response = await fetch(`${base.value}/api/view/log`)
     const res = await response.json()
     if (res.success) log.value = res.data
   }

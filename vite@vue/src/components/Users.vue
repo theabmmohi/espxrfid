@@ -7,7 +7,7 @@
   const toggleErr  = ref("")
   
   const getUsers = async () => {
-    const response = await fetch(`${base.value}/api/view/users`, { credentials: "include" })
+    const response = await fetch(`${base.value}/api/view/users`)
     const res = await response.json()
     if (res.success) users.value = res.data
   }
@@ -20,10 +20,10 @@
       const form = new FormData()
       form.append("uid",    row.uid)
       form.append("access", newAccess)
-      const res  = await fetch(`${base.value}/api/users/toggle`, { method: "POST", body: form, credentials: "include" })
+      const res  = await fetch(`${base.value}/api/users/toggle`, { method: "POST", body: form })
       const data = await res.json()
       if (data.success) {
-        row.access = newAccess   // apply ONLY after confirmed
+        row.access = newAccess
       } else {
         toggleErr.value = data.message || "Toggle failed"
         setTimeout(() => { toggleErr.value = "" }, 2500)

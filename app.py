@@ -8,8 +8,6 @@ init_db()
 TZ_OFFS = int(os.getenv("TZ_OFFS", 6))
 app = Flask(__name__)
 app.secret_key = os.getenv("FLASK_K")
-app.config["SESSION_COOKIE_SAMESITE"] = "None"
-app.config["SESSION_COOKIE_SECURE"] = True
 CORS(app, supports_credentials=True)
 _subscribers      = []
 _subscribers_lock = threading.Lock()

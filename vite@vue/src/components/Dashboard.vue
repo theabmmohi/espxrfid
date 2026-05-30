@@ -64,7 +64,7 @@
   }
   
   const logout = async () => {
-    const res  = await fetch(`${base.value}/api/auth/logout`, { credentials: "include" })
+    const res  = await fetch(`${base.value}/api/auth/logout`)
     const data = await res.json()
     if (data.success && !data.isLoggedIn) window.location.reload()
   }
